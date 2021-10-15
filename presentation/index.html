@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/night.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -16,8 +16,123 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Introduction to Docker</h1>
+					<img src="images/docker.webp">
+				</section>
+				
+				<section>
+					<h2>¿Qué es Docker?</h2>
+					<p>
+					Conjunto de heramientas para la creación y ejecución de <span class="fragment highlight-blue">contenedores</span>
+					</p>
+				</section>
+
+				<section>
+					<h4>Disclaimer</h4>
+					<h2>Los contenedores <span class="fragment highlight-red"><strong>NO</strong></span> son máquinas virtuales</h2>
+				</section>
+
+				<section>
+					<section>
+						<h2>¿Qué es un contenedor?</h2>
+						<p>
+							Es <em>simplemente</em> aislar un proceso que se ejecuta en el espacio del kernel, por medio de dos características del sistema operativo(*)
+							<ul>
+								<li><a href="https://en.wikipedia.org/wiki/Linux_namespaces" target="_blank">Namespaces</a></li>
+								<li><a href="https://en.wikipedia.org/wiki/Cgroups" target="_blank">CGroups</a></li>
+							</ul>
+						</p>
+						<p>
+							<small>(*) Habitualmente los sistemas operativos sin soporte a estas características virtualizan un kernel Linux</small>
+						</p>
+						<aside class="notes">
+						</aside>
+					</section>
+					<section data-background="images/silicon-valley.png">
+						<h3>entering nerd zone</h3>
+					</section>
+					<section>
+						<h2>Namespaces</h2>
+						<p>Es una capa de abstracción que hace que los procesos dentro de un determinado espacio de usuario tengan aislados sus recursos hardware</p>
+						<small>
+							<ul>
+								<li><strong>PID namespace</strong>: Tu proceso puede verse a si mismo y a sus procesos hijos</li>
+								<li><strong>Networking namespace</strong>: Ejecutar programas en cualquier puerto sin entrar en conflicto con otros procesos usando ese puerto</li>
+								<li><strong>Mount namespace</strong>: Montar y desmontar sistemas de ficheros sin afectar al sistema de ficheros del anfitrión (<em>host</em>)</li>
+							</ul>
+						</small>
+					</section>
+					<section>
+						<h2>CGroups</h2>
+						<small>(control groups)</small>
+						<p>Característica del kernel de Linux que limita y aisla el uso de recursos (CPU, memoria, acceso a disco, red, etc.) a un conjunto de procesos</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<img src="images/docker-for-dummies.jpeg"/>
+					</section>
+					<section>
+						<h3>Conjunto de heramientas para la creación y ejecución de contenedores</h3>
+					</section>
+					<section>
+						<h2>Conceptos</h2>
+						<ul>
+							<li>imagen</li>
+							<li>contenedor</li>
+							<li>CLI</li>
+							<li>registro / <em>hub</em></li>
+						</ul>
+					</section>
+					<section>
+						<h2>Imagen</h2>
+						<p>TBD</p>
+						<p>Un empaquetado de los recursos usados por un proceso que se ejecuta en un contenedor</p>
+					</section>
+					<section>
+						<h2>Contenedor</h2>
+						<p>TBD</p>
+						<p>Ejecución de una imagen</p>
+						<p>Mantiene estado</p>
+					</section>
+					<section>
+						<h2>CLI</h2>
+						<p>TBD</p>
+						<p>La interfaz de línea de comando para la creación de imagenes y contenedores</p>					<pre data-id="code-animation"><code class="hljs" data-trim>
+							docker build [OPTIONS] PATH | URL | -
+						</code></pre>
+						<pre data-id="code-animation"><code class="hljs" data-trim>
+							docker run [OPTIONS] IMAGE [COMMAND] [ARGS]
+						</code></pre>
+					</section>
+					<section>
+						<h2>Registro / <em>hub</em></h2>
+						<p>TBD</p>
+						<p>Repositorio de imágenes de contenedores</p>
+						<p>Local y remotos (Docker Hub, Google Container Registry, Amazon ECR, etc.)</p>
+					</section>
+				</section>
+
+				<section>
+					<h3>Otras tecnologías relacionadas</h3>
+						<ul>
+							<li><a href="https://opencontainers.org/" target="_blank">Open Container Initiative</a> es una iniciativa para la creación de estandares de formatos de contenedores y <em>runtimes</em>
+							<li><a href="https://containerd.io/" target="_blank">ContainerD</a> es un <em>runtime</em> para ejecución de contenedores OCI
+							<li><a href="https://podman.io/" target="_blank">Podman</a> es un <em>daemonless OCI Container engine</em></li>
+						</ul>
+				</section>
+
+				<section>
+					<h3>¿ Preguntas ?</h3>
+					<img src="images/guillermo-de-baskerville-gafas.gif">
+				</section>
+
+				<section>
+					<h3>¡ Gracias !</h3>
+					<img src="images/beard-hello.gif">
+				</section>
 			</div>
 		</div>
 
@@ -26,14 +141,9 @@
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ] // https://revealjs.com/plugins/
 			});
 		</script>
 	</body>
