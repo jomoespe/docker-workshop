@@ -2,6 +2,8 @@
 
 This example creates a minimun container image. It only contains a binary that say *Hello world!*. Also this example shows how to send arguments to conteinized process.
 
+> The `hello-world` program is a Linux (ELF) file. It will not run on ohter platforms (Windows, Mac, etc.). But it will run inside the container, because the container engine will run a Linux kernel.
+
 ## Building the image
 
 ```bash
