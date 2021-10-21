@@ -7,7 +7,7 @@ This example creates a minimun container image. It only contains a binary that s
 ## Building the image
 
 ```bash
-docker build -t hello-world-minimal .
+docker build --tag hello-world-minimal .
 ```
 
 ## Running a container

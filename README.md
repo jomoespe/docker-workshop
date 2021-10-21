@@ -4,8 +4,8 @@
 
 ## Examples
 
-1. [Minimal container](examples/01-minimal-container)
-2. [Container from base image](examples/02-container-from-image)
+1. [Minimal image](examples/01-minimal-image)
+2. [Container image from base image](examples/02-image-from-image)
 3. [Mounting volumes](examples/03-mounting-volumes)
 4. [Long running containers](examples/04-long-running-container)
 
