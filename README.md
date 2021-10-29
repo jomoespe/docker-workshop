@@ -1,6 +1,6 @@
 # Docker Workshop
 
-[Link to presentation](presentation/index.html)
+[Link to presentation](presentation/)
 
 To execute the presentation:
 
