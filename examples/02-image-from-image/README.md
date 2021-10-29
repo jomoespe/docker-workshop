@@ -5,7 +5,7 @@ This example creates an image from another image, **alpine:3.14.2**, that execut
 ## Building the image
 
 ```bash
-docker build -t hello-from-image .
+docker build --tag hello-from-image .
 ```
 
 ## Running a container
