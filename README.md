@@ -13,3 +13,4 @@
 
 * [Docker site](https://docker.com)
 * [What even is a container: namespaces and cgroups](https://jvns.ca/blog/2016/10/10/what-even-is-a-container/)
+* [Docker Internals. A Deep Dive Into Docker For Engineers Interested In The Gritty Detai](http://docker-saigon.github.io/post/Docker-Internals/)
