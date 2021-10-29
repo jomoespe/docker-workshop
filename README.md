@@ -2,6 +2,17 @@
 
 [Link to presentation](presentation/index.html)
 
+To execute the presentation:
+
+```bash
+docker run \
+  --rm \
+  --publish 8080:80 \
+  jomoespe/docker-workshop-presentation
+```
+
+Once the container is running, open your browser to [localhost:8080](http://localhost:8080)
+
 ## Examples
 
 1. [Minimal image](examples/01-minimal-image)
