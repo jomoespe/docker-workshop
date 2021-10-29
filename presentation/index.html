@@ -17,7 +17,7 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>Introduction to Docker</h1>
+					<h1>Una intro a Docker</h1>
 					<img src="images/docker.webp">
 				</section>
 				
@@ -88,40 +88,226 @@
 					</section>
 					<section>
 						<h2>Imagen</h2>
-						<p>TBD</p>
 						<p>Un empaquetado de los recursos usados por un proceso que se ejecuta en un contenedor</p>
 					</section>
 					<section>
 						<h2>Contenedor</h2>
-						<p>TBD</p>
-						<p>Ejecución de una imagen</p>
+						<p>Una instancia de una imagen de un contenedor</p>
 						<p>Mantiene estado</p>
 					</section>
 					<section>
 						<h2>CLI</h2>
-						<p>TBD</p>
-						<p>La interfaz de línea de comando para la creación de imagenes y contenedores</p>					<pre data-id="code-animation"><code class="hljs" data-trim>
+						<p>La interfaz de línea de comando para trabajar con imagenes y contenedores Docker</p>
+						<pre data-id="code-animation"><code class="hljs language-plaintext" data-trim>
 							docker build [OPTIONS] PATH | URL | -
 						</code></pre>
-						<pre data-id="code-animation"><code class="hljs" data-trim>
+						<pre data-id="code-animation"><code class="hljs language-plaintext" data-trim>
 							docker run [OPTIONS] IMAGE [COMMAND] [ARGS]
 						</code></pre>
 					</section>
 					<section>
 						<h2>Registro / <em>hub</em></h2>
-						<p>TBD</p>
 						<p>Repositorio de imágenes de contenedores</p>
 						<p>Local y remotos (Docker Hub, Google Container Registry, Amazon ECR, etc.)</p>
 					</section>
 				</section>
 
 				<section>
-					<h3>Otras tecnologías relacionadas</h3>
+					<section>
+						<h2>Imágenes</h2>
+					</section>
+					<section>
+						<p>Un empaquetado de los recursos usados por un proceso que se ejecuta en un contenedor</p>
+						<p>Se crean a partir de un descriptor (<code>Dockerfile</code>) en el que se describe su contenido</p>
+					</section>
+					<section>
+						<h3>Dockerfile</h3>
+						<pre data-id="code-animation"><code class="hljs language-dockerfile" data-trim>
+							FROM alpine:3.14.2
+
+							ADD file.txt /
+							
+							ENTRYPOINT [ "echo", "/file.txt" ]
+						</code></pre>
+						<p>Una imagen se puede crear partiendo de una imagen previa o <em>from scratch</em></p>
+					</section>
+					<section>
+						<h3>Construcción de una imagen</h3>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker build [--tag IMAGE_NAME] [--file DOCKER_FILE] .
+						</code></pre>
+						
+						<p>Por defecto el fichero se llama <code>Dockerfile</code>, pero se puede usar cualquier otro nombre</p>
+
+						<small>El último parámetro hace referencia al directorio que actua como contexto de construcción (<em>build context</em>) del contenedor.</small>
+					</section>
+					<section>
+						<h3>Gestión de imagenes</h3>
+						<h4>Listar las imagenes</h4>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker images
+						</code></pre>
+						<h4>Borrado  de una imagen</h4>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker rmi IMAGE_ID
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Contenedores</h2>
+					</section>
+					<section>
+						<p>La ejecución de una imagen de un contenedor</p>
+						<p>Mantienen estado entre ejecuciones</p>
+					</section>
+					<section>
+						<h2>Ciclo de vida</h2>
+						<img src="images/docker-container-lifecycle.jpg">
+					</section>
+					<section>
+						<h4>Creación de un contenedor</h4>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker create IMAGE
+						</code></pre>
+						<h4>Creacíón y/o ejecución de un contenedor</h4>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker run IMAGE
+
+							docker start CONTAINER [CONTAINER...]
+						</code></pre>
+					</section>
+					<section>
+						<h2>Volumenes y puertos</h2>
+						<p>Un contenedor es un <strong>proceso aislado</strong>, pero puede:
+							<ul>
+								<li>montar volumenes del anfitrión</li>
+								<li>exponer puertos de</li>
+							</ul>
+						</p>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker run [--publish hostPort:containerPort] \
+							           [--volume [hostPAth:containerPath[:ro]]
+						</code></pre>
+						<p>Ejemplo: ejecución de dbt</p>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker run \
+								--rm \
+								--publish 8080:8080 \
+								--volume "$(pwd)/gold:/usr/app" \
+								--volume $(pwd):/root/.dbt/:ro \
+								--env-file=env_vars \
+								fishtownanalytics/dbt:0.21.0 COMANDO_DBT
+						</code></pre>
+					</section>
+					<section>
+						<h2>Gestión de contenedores</h2>
+						<h4>Listar los contenedores</h4>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker ps [--all]
+						</code></pre>
+						<h4>Borrado  de una imagen</h4>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker rm CONTAINER
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Ejemplos</h2>
+						<p>Puedes ver todos los ejemplos en el repositorio de este tutorial 
+						(<a href="https://github.com/jomoespe/docker-workshop/">https://github.com/jomoespe/docker-workshop/</a>)</p>
+					</section>
+					<section>
+						<h2>Creación de imagen from scratch</h2>
+						<small><a href="https://github.com/jomoespe/docker-workshop/tree/master/examples/01-minimal-container">https://github.com/jomoespe/docker-workshop/tree/master/examples/01-minimal-container</a></small>
+						<pre data-id="code-animation"><code class="hljs language-dockerfile" data-trim>
+							FROM scratch
+							ADD hello-world /
+							ENTRYPOINT [ "/hello-world" ]
+						</code></pre>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker build --tag hello-world-minimal .
+						</code></pre>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker run hello-world-minimal
+
+							docker run hello-world-minimal "Data Team"
+						</code></pre>
+					</section>
+					<section>
+						<h2>Creación de imagen desde imagen base</h2>
+						<small><a href="https://github.com/jomoespe/docker-workshop/tree/master/examples/01-minimal-container">https://github.com/jomoespe/docker-workshop/tree/master/examples/01-minimal-container</a></small>
+						<pre data-id="code-animation"><code class="hljs language-dockerfile" data-trim>
+							FROM alpine:3.14.2
+							ENTRYPOINT [ "echo", "Hello from Alpine Linux" ]
+						</code></pre>
+					</section>
+					<section>
+						<h2>Ejecución desde Docker Hub</h2>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker run \
+								--rm \
+								--publish 8080:8080 \
+								--volume "$(pwd)/gold:/usr/app" \
+								--volume $(pwd):/root/.dbt/:ro \
+								--env-file=env_vars \
+								fishtownanalytics/dbt:0.21.0 COMANDO_DBT
+						</code></pre>
+					</section>
+					<section>
+						<h2>Ejecutar esta presentación</h2>
+						<pre data-id="code-animation"><code class="hljs language-shellscript" data-trim>
+							docker run \
+								--rm \
+								--publish 8080:80 \
+								jomoespe/docker-workshop-presentation
+						</code></pre>
+						<p>Abrir un navegador y acceder a <a href="http://localhost:8080">http://localhost:8080</a></p>
+						<small>esta imagen está descargada desde Docker Hub</small>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>✏️ Recomendaciones</h2>
+						<ul>
+							<li>Usar <strong><code>--rm</code></strong> siempre que no se requiera guardar el contenedor</li>
+							<li>Para evitar efectos secundarios en el filesystem del anfitrión (host) <strong>montar los volumenes en 
+							modo lectura</strong> siempre que sea posible</li>
+							<li><a href="https://docs.docker.com/config/pruning/">Limpieza de contenedores e imagenes</a>
+								<pre data-id="code-animation"><code class="hljs language-plaintext" data-trim>
+									docker [image|container|volume|network] prune [-a]
+								</code></pre>
+								<pre data-id="code-animation"><code class="hljs language-plaintext" data-trim>
+									docker system prune [-a]
+								</code></pre>
+							</li>
+							<li>💡 Crear <strong>alias</strong> del SO para comandos dockerizados</li>
+						</ul>
+					</section>
+					<section>
+						<h2>🤫 Se quedó fuera</h2>
+						<ul>
+							<li>Ejecutar comandos como demonios 😈 (<em>dettached</em>)</li>
+							<li>Publicación de imagenes en registros</li>
+							<li>Paso de variables de entorno</li>
+							<li>Multistage Dockerfiles (<a href="https://github.com/jomoespe/docker-workshop/tree/master/examples/05-multistage-docker-file">hay un ejemplo</a>)</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h3>Tecnologías relacionadas</h3>
+					<p>
 						<ul>
 							<li><a href="https://opencontainers.org/" target="_blank">Open Container Initiative</a> es una iniciativa para la creación de estandares de formatos de contenedores y <em>runtimes</em>
 							<li><a href="https://containerd.io/" target="_blank">ContainerD</a> es un <em>runtime</em> para ejecución de contenedores OCI
 							<li><a href="https://podman.io/" target="_blank">Podman</a> es un <em>daemonless OCI Container engine</em></li>
 						</ul>
+					</p>
 				</section>
 
 				<section>
