@@ -8,6 +8,8 @@
 2. [Container image from base image](examples/02-image-from-image)
 3. [Mounting volumes](examples/03-mounting-volumes)
 4. [Long running containers](examples/04-long-running-container)
+5. [Multistage Dockerfile](examples/05-multistage-docker-file)
+6. [Conteinize the presentation](examples/06-conteinize-the-presentation)
 
 ## References
 
